@@ -17,6 +17,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+const db = require('electron-db');
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -31,6 +33,15 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('checkForConfig', async (event) => {
+  console.log('checking for existing config');
+  if (db.tableExists('config')) {
+    event.reply('checkForConfig', true);
+  } else {
+    event.reply('checkForConfig', false);
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -78,6 +89,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      // devTools: false,
     },
   });
 
