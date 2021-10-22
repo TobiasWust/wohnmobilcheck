@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import './App.global.css';
 import CustomerTable from './components/CustomerTable';
-import Welcome from './pages/Setup';
+import Setup from './pages/Setup';
 
 declare global {
   interface Window {
@@ -41,7 +41,7 @@ export default function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Hello} />
-        <Route path="/Welcome" component={Welcome} />
+        <Route path="/Setup" component={Setup} />
       </Switch>
     </Router>
   );
