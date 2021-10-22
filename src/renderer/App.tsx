@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import './App.global.css';
 import CustomerTable from './components/CustomerTable';
-import Welcome from './pages/Welcome';
+import Welcome from './pages/Setup';
 
 declare global {
   interface Window {
