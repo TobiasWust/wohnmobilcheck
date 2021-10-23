@@ -5,43 +5,38 @@ import {
   Route,
   useHistory,
 } from 'react-router-dom';
+import api from './api';
 import './App.global.css';
-import CustomerTable from './components/CustomerTable';
+import Home from './pages/Home';
 import Setup from './pages/Setup';
 
-declare global {
-  interface Window {
-    electron?: any;
-  }
-}
-
-const Hello = () => {
+const Loader = () => {
   const { push } = useHistory();
 
   useEffect(() => {
-    window.electron.ipcRenderer.on('checkForConfig', (arg: boolean) => {
-      if (!arg) push('/Welcome');
+    api.on('checkForConfig', (hasConfig: boolean) => {
+      console.log('has Config?', hasConfig);
+      if (hasConfig) push('/');
+      else push('/setup');
     });
 
-    window.electron.ipcRenderer.checkForConfig();
+    api.checkForConfig();
   }, [push]);
 
   return (
     <div>
-      <h1>Wohnwage Checker</h1>
-      <div className="Hello">
-        <CustomerTable />
-      </div>
+      <h1>Loading</h1>
     </div>
   );
 };
 
 export default function App() {
   return (
-    <Router>
+    <Router initialEntries={['/loader']}>
       <Switch>
-        <Route exact path="/" component={Hello} />
-        <Route path="/Setup" component={Setup} />
+        <Route exact path="/" component={Home} />
+        <Route path="/loader" component={Loader} />
+        <Route path="/setup" component={Setup} />
       </Switch>
     </Router>
   );
