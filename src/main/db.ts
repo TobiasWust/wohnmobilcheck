@@ -8,6 +8,7 @@ const db = {
   saveConfig: (config: any) => {
     return new Promise((resolve) => {
       if (edb.valid('config')) {
+        edb.clearTable('config');
         edb.insertTableContent('config', config, (succ: boolean) => {
           // succ - boolean, tells if the call is successful
           resolve(succ);
