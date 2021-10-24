@@ -20,6 +20,14 @@ const registerIpc = () => {
     console.log('onGetConfig', res);
     return res;
   });
+  ipcMain.handle('getCustomers', async () => {
+    const res = await db.getCustomers();
+    console.log('getCustomers', res);
+    return res;
+  });
+  ipcMain.handle('saveCustomer', async (_e, customer) => {
+    return db.saveCustomer(customer);
+  });
 };
 
 export default registerIpc;

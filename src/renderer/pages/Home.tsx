@@ -13,10 +13,8 @@ const Home = () => {
   return (
     <div>
       <h1>Wohnwage Checker</h1>
-      <div className="Hello">
-        <CustomerTable />
-        {/* <CheckTable /> */}
-      </div>
+      <CustomerTable />
+      {/* <CheckTable /> */}
       <Button onClick={() => push('/settings')}>Settings</Button>
     </div>
   );

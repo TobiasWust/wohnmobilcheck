@@ -1,6 +1,6 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     electron: {
       ipcRenderer: {
         on: any;
@@ -8,6 +8,8 @@ declare global {
         saveConfig: any;
         checkForConfig: any;
         getConfig: any;
+        addCustomer: any;
+        getCustomers: any;
       };
     };
   }

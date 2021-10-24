@@ -1,36 +1,49 @@
+import { Button } from '@material-ui/core';
 import { TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
-
-const rows = [
-  { id: 1, name: 'Wust', firstname: 'Tobias' },
-  { id: 2, name: 'Ruppert', firstname: 'Hann' },
-  { id: 3, name: 'Vogel', firstname: 'Anne' },
-];
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import api from '../api';
+import { ICustomer } from '../pages/Customer';
 
 const columns = [
-  { field: 'name', headerName: 'Name', width: 150 },
-  { field: 'firstname', headerName: 'Vorname', width: 150 },
+  { field: 'lastName', headerName: 'Name', width: 150 },
+  { field: 'firstName', headerName: 'Vorname', width: 150 },
+  { field: 'street', headerName: 'Straße', width: 150 },
+  { field: 'city', headerName: 'Stadt', width: 150 },
 ];
 
 const CustomerTable = () => {
-  const [customer, setCustomer] = useState('');
+  const [customerFilter, setCustomerFilter] = useState('');
+  const [customers, setCustomers] = useState<ICustomer[]>([]);
+  const { push } = useHistory();
+
+  useEffect(() => {
+    api
+      .getCustomers()
+      .then((res: any) => {
+        return setCustomers(res);
+      })
+      .catch(console.log);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div>
       <h1>Kunden</h1>
       <div style={{ height: 300, width: '100%' }}>
         <TextField
-          value={customer}
-          onChange={(e) => setCustomer(e.target.value)}
+          label="Namen durchsuchen"
+          value={customerFilter}
+          onChange={(e) => setCustomerFilter(e.target.value)}
         />
         <DataGrid
-          rows={rows.filter(
+          rows={customers.filter(
             (r) =>
-              r.name.toLowerCase().includes(customer.toLowerCase()) ||
-              r.firstname.toLowerCase().includes(customer.toLowerCase())
+              r.lastName.toLowerCase().includes(customerFilter.toLowerCase()) ||
+              r.firstName.toLowerCase().includes(customerFilter.toLowerCase())
           )}
           columns={columns}
         />
+        <Button onClick={() => push('/customer')}>Kunden Hinzufügen</Button>
       </div>
     </div>
   );

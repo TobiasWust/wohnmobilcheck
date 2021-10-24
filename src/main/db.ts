@@ -1,3 +1,4 @@
+import { ICustomer } from '../renderer/pages/Customer';
 import { IConfig } from '../renderer/pages/Setup';
 
 const edb = require('electron-db');
@@ -34,6 +35,25 @@ const db = {
   },
   createChecksTable: () => {
     edb.createTable('checks', (...args: any) => ({ ...args }));
+  },
+  saveCustomer: (config: IConfig) => {
+    return new Promise((resolve) => {
+      if (edb.valid('customers')) {
+        edb.insertTableContent('customers', config, (succ: boolean) => {
+          resolve(succ);
+        });
+      }
+      resolve(false);
+    });
+  },
+  getCustomers: () => {
+    return new Promise((resolve) => {
+      edb.getAll('customers', (succ: boolean, data: ICustomer[]) => {
+        console.log('getCustomers:', data);
+        if (succ) resolve(data);
+      });
+      resolve(false);
+    });
   },
 };
 
