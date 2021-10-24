@@ -4,14 +4,14 @@ const validChannels = ['checkForConfig', 'saveConfig'];
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
-    checkForConfig() {
-      ipcRenderer.send('checkForConfig');
+    async checkForConfig() {
+      return ipcRenderer.invoke('checkForConfig');
     },
-    saveConfig(config) {
-      ipcRenderer.send('saveConfig', config);
+    async saveConfig(config) {
+      return ipcRenderer.invoke('saveConfig', config);
     },
-    getConfig() {
-      ipcRenderer.send('getConfig');
+    async getConfig() {
+      return ipcRenderer.invoke('getConfig');
     },
     on(channel, func) {
       if (validChannels.includes(channel)) {

@@ -14,13 +14,13 @@ const Loader = () => {
   const { push } = useHistory();
 
   useEffect(() => {
-    api.once('checkForConfig', (hasConfig: boolean) => {
-      console.log('has Config?', hasConfig);
-      if (hasConfig) push('/');
-      else push('/setup');
-    });
-
-    api.checkForConfig();
+    api
+      .checkForConfig()
+      .then((hasConfig: boolean) => {
+        if (hasConfig) return push('/');
+        return push('/setup');
+      })
+      .catch((e: any) => console.log(e));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

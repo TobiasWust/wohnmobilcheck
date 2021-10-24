@@ -2,22 +2,23 @@ import { ipcMain } from 'electron';
 import db from './db';
 
 const registerIpc = () => {
-  ipcMain.on('checkForConfig', async (event) => {
-    event.reply('checkForConfig', db.configExists());
+  ipcMain.handle('checkForConfig', async () => {
+    return db.configExists();
   });
 
-  ipcMain.on('saveConfig', async (event, settings) => {
+  ipcMain.handle('saveConfig', async (_e, settings) => {
     if (!db.configExists()) {
       db.createConfigTable();
       db.createCustomersTable();
       db.createChecksTable();
     }
-    event.reply('saveConfig', await db.saveConfig(settings));
+    return db.saveConfig(settings);
   });
 
-  ipcMain.on('getConfig', async (event) => {
-    console.log('onGetConfig');
-    event.reply('getConfig', await db.getConfig());
+  ipcMain.handle('getConfig', async () => {
+    const res = await db.getConfig();
+    console.log('onGetConfig', res);
+    return res;
   });
 };
 

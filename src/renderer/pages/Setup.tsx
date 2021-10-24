@@ -26,19 +26,13 @@ const Setup = () => {
   const [settings, setSettings] = useSettings;
 
   useEffect(() => {
-    api.on('saveConfig', (configSaved: boolean) => {
-      if (configSaved) {
-        promiseModal(Toast, { type: 'success', message: 'gespeichert' });
-        push('/');
-      } else promiseModal(Toast, { type: 'error', message: 'nicht' });
-    });
-
-    api.on('getConfig', (config: IConfig) => {
-      console.log('config?', config);
-      if (config) setSettings(config);
-    });
-
-    api.getConfig();
+    api
+      .getConfig()
+      .then((res: any) => {
+        console.log(res);
+        return setSettings(res[0]);
+      })
+      .catch((e: any) => console.log(e));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -48,7 +42,11 @@ const Setup = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          api.saveConfig(settings);
+          const configSaved = await api.saveConfig(settings);
+          if (configSaved) {
+            promiseModal(Toast, { type: 'success', message: 'gespeichert' });
+            push('/');
+          } else promiseModal(Toast, { type: 'error', message: 'nicht' });
         }}
       >
         <Grid container spacing={3}>
