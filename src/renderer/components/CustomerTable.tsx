@@ -27,9 +27,21 @@ const CustomerTable = () => {
       .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <div>
-      <h1>Kunden</h1>
-      <div style={{ height: 300, width: '100%' }}>
+    <div
+      style={{
+        height: '100%',
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+      }}
+    >
+      <h2>Kunden</h2>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'auto 1fr auto',
+          gap: '1em',
+        }}
+      >
         <TextField
           label="Namen durchsuchen"
           value={customerFilter}
@@ -43,7 +55,9 @@ const CustomerTable = () => {
           )}
           columns={columns}
         />
-        <Button onClick={() => push('/customer')}>Kunden Hinzufügen</Button>
+        <Button variant="contained" onClick={() => push('/customer')}>
+          Kunde Hinzufügen
+        </Button>
       </div>
     </div>
   );

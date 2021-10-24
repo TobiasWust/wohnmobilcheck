@@ -11,11 +11,29 @@ import CustomerTable from '../components/CustomerTable';
 const Home = () => {
   const { push } = useHistory();
   return (
-    <div>
-      <h1>Wohnwage Checker</h1>
-      <CustomerTable />
-      {/* <CheckTable /> */}
-      <Button onClick={() => push('/settings')}>Settings</Button>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        height: '100vh',
+        padding: '3em',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div>
+        <h1>Wohnwagen Checker</h1>
+        <Button variant="contained" onClick={() => push('/settings')}>
+          Firmendaten ändern
+        </Button>
+      </div>
+      <div style={{ display: 'grid', gridAutoFlow: 'column', gap: '2em' }}>
+        <div>
+          <CustomerTable />
+        </div>
+        <div>
+          <CustomerTable />
+        </div>
+      </div>
     </div>
   );
 };

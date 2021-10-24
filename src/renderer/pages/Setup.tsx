@@ -35,7 +35,11 @@ const Setup = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div>
+    <div
+      style={{
+        padding: '3em',
+      }}
+    >
       <h1>Einstellungen</h1>
       <p>Bitte mach ein paar Angaben zu deiner Firma.</p>
       <form
