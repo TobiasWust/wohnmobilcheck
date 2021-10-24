@@ -24,7 +24,6 @@ const db = {
   getConfig: () => {
     return new Promise((resolve) => {
       edb.getAll('config', (succ: boolean, data: IConfig[]) => {
-        console.log('db tries to get cnfig', succ, data);
         if (succ) resolve(data);
       });
       resolve(false);

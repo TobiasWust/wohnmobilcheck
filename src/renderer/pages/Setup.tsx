@@ -29,10 +29,9 @@ const Setup = () => {
     api
       .getConfig()
       .then((res: any) => {
-        console.log(res);
         return setSettings(res[0]);
       })
-      .catch((e: any) => console.log(e));
+      .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

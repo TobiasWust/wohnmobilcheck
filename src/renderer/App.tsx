@@ -20,7 +20,7 @@ const Loader = () => {
         if (hasConfig) return push('/');
         return push('/setup');
       })
-      .catch((e: any) => console.log(e));
+      .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
