@@ -3,9 +3,11 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     electron: {
       ipcRenderer: {
-        saveConfig: any;
         on: any;
+        once: any;
+        saveConfig: any;
         checkForConfig: any;
+        getConfig: any;
       };
     };
   }

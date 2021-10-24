@@ -10,6 +10,9 @@ contextBridge.exposeInMainWorld('electron', {
     saveConfig(config) {
       ipcRenderer.send('saveConfig', config);
     },
+    getConfig() {
+      ipcRenderer.send('getConfig');
+    },
     on(channel, func) {
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`

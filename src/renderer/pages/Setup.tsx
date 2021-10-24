@@ -10,8 +10,20 @@ import Toast from '../components/Toast';
 import promiseModal from '../helper/promiseModal';
 import { handleInput } from '../utils';
 
+export interface IConfig {
+  companyName: string;
+  street: string;
+  city: string;
+}
+
 const Setup = () => {
   const { push } = useHistory();
+  const useSettings = useState({
+    companyName: '',
+    street: '',
+    city: '',
+  });
+  const [settings, setSettings] = useSettings;
 
   useEffect(() => {
     api.on('saveConfig', (configSaved: boolean) => {
@@ -21,16 +33,13 @@ const Setup = () => {
       } else promiseModal(Toast, { type: 'error', message: 'nicht' });
     });
 
-    api.checkForConfig();
-  }, [push]);
+    api.on('getConfig', (config: IConfig) => {
+      console.log('config?', config);
+      if (config) setSettings(config);
+    });
 
-  const useSettings = useState({
-    companyName: '',
-    street: '',
-    city: '',
-  });
-
-  const [settings] = useSettings;
+    api.getConfig();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

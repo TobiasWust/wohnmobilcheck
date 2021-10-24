@@ -14,14 +14,14 @@ const Loader = () => {
   const { push } = useHistory();
 
   useEffect(() => {
-    api.on('checkForConfig', (hasConfig: boolean) => {
+    api.once('checkForConfig', (hasConfig: boolean) => {
       console.log('has Config?', hasConfig);
       if (hasConfig) push('/');
       else push('/setup');
     });
 
     api.checkForConfig();
-  }, [push]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -35,8 +35,8 @@ export default function App() {
     <Router initialEntries={['/loader']}>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/loader" component={Loader} />
-        <Route path="/setup" component={Setup} />
+        <Route exact path="/loader" component={Loader} />
+        <Route exact path="/settings" component={Setup} />
       </Switch>
     </Router>
   );
