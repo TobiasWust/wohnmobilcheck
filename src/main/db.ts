@@ -1,3 +1,4 @@
+import { ICheck } from '../renderer/pages/Check';
 import { ICustomer } from '../renderer/pages/Customer';
 import { IConfig } from '../renderer/pages/Setup';
 
@@ -61,6 +62,31 @@ const db = {
     return new Promise((resolve) => {
       edb.getAll('customers', (succ: boolean, data: ICustomer[]) => {
         console.log('getCustomers:', data);
+        if (succ) resolve(data);
+      });
+      resolve(false);
+    });
+  },
+  saveCheck: (check: ICheck) => {
+    return new Promise((resolve) => {
+      if (edb.valid('checks')) {
+        if (check.id) {
+          edb.updateRow('checks', { id: check.id }, check, (succ: boolean) => {
+            resolve(succ);
+          });
+        } else {
+          edb.insertTableContent('checks', check, (succ: boolean) => {
+            resolve(succ);
+          });
+        }
+      }
+      resolve(false);
+    });
+  },
+  getChecks: () => {
+    return new Promise((resolve) => {
+      edb.getAll('checks', (succ: boolean, data: ICheck[]) => {
+        console.log('getChecks:', data);
         if (succ) resolve(data);
       });
       resolve(false);

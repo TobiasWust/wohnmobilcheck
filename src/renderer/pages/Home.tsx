@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router';
+import CheckTable from '../components/CheckTable';
 import CustomerTable from '../components/CustomerTable';
 // search customer
 // customer table
@@ -29,6 +30,9 @@ const Home = () => {
       <div style={{ display: 'grid', gridAutoFlow: 'column', gap: '2em' }}>
         <div>
           <CustomerTable />
+        </div>
+        <div>
+          <CheckTable />
         </div>
       </div>
     </div>

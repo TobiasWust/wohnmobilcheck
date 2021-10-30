@@ -28,6 +28,14 @@ const registerIpc = () => {
   ipcMain.handle('saveCustomer', async (_e, customer) => {
     return db.saveCustomer(customer);
   });
+  ipcMain.handle('getChecks', async () => {
+    const res = await db.getChecks();
+    console.log('getChecks', res);
+    return res;
+  });
+  ipcMain.handle('saveCheck', async (_e, check) => {
+    return db.saveCheck(check);
+  });
 };
 
 export default registerIpc;

@@ -10,6 +10,8 @@ declare global {
         getConfig: any;
         saveCustomer: any;
         getCustomers: any;
+        saveCheck: any;
+        getChecks: any;
       };
     };
   }

@@ -42,7 +42,7 @@ const Customer = () => {
 
   return (
     <div>
-      <h1>Kunden anlegen</h1>
+      <h1>Kunden {selectedCustomer.id ? 'bearbeiten' : 'anlegen'}</h1>
       <p>Bitte mach ein paar Angaben zum Kunden.</p>
       <form
         onSubmit={async (e) => {

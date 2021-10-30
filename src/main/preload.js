@@ -19,6 +19,12 @@ contextBridge.exposeInMainWorld('electron', {
     async saveCustomer(customer) {
       return ipcRenderer.invoke('saveCustomer', customer);
     },
+    async getChecks() {
+      return ipcRenderer.invoke('getChecks');
+    },
+    async saveChecks(check) {
+      return ipcRenderer.invoke('saveChecks', check);
+    },
     on(channel, func) {
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
