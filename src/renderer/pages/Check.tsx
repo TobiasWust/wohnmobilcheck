@@ -8,6 +8,7 @@ import { Box } from '@mui/system';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
+import CheckItem from '../components/CheckItem';
 import Toast from '../components/Toast';
 import promiseModal from '../helper/promiseModal';
 import { handleInput } from '../utils';
@@ -59,13 +60,19 @@ const Check = () => {
             <h2>Außencheck</h2>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              id="car"
-              value={check.car}
-              onChange={(e) => handleInput(e, useCheck)}
-              label="Fahrzeug"
-              required
-              fullWidth
+            <CheckItem
+              id="smell"
+              label="Geruchsprobe"
+              type="checkbox"
+              onChange={(e) => console.log(e)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckItem
+              id="sack"
+              label="Sackprobe"
+              type="rating"
+              onChange={(e) => console.log(e)}
             />
           </Grid>
           <Grid item xs={12}>
