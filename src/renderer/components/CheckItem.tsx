@@ -2,7 +2,7 @@ import { Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Rating from './Rating';
 
-interface IValue {
+export interface IValue {
   id: string;
   value: boolean | number | null;
   note: string;
@@ -24,7 +24,8 @@ const CheckItem = ({ id, label, type, onChange: handleChange }: ICheckItem) => {
 
   useEffect(() => {
     handleChange(value);
-  }, [value, handleChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <div style={{ display: 'grid' }}>
@@ -40,7 +41,6 @@ const CheckItem = ({ id, label, type, onChange: handleChange }: ICheckItem) => {
           <Checkbox
             checked={value.value as boolean}
             inputProps={{ 'aria-label': label }}
-            defaultChecked
             sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
             onChange={(_e, v) => setValue({ ...value, value: v })}
           />

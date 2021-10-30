@@ -5,7 +5,7 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import CheckItem from '../components/CheckItem';
@@ -16,6 +16,7 @@ import { handleInput } from '../utils';
 export interface ICheck {
   id?: number;
   car: string;
+  values: any;
 }
 
 const Check = () => {
@@ -23,10 +24,23 @@ const Check = () => {
   const { selectedCheck } = (location.state as {
     selectedCheck: Partial<ICheck>;
   }) || {
-    selectedCheck: { lastName: '', firstName: '', street: '', city: '' },
+    selectedCheck: {
+      car: '',
+      values: {},
+    },
   };
   const useCheck = useState(selectedCheck);
-  const [check] = useCheck;
+  const [check, setCheck] = useCheck;
+
+  const handleCheck = (e: any) => {
+    setCheck({
+      ...check,
+      values: {
+        ...check.values,
+        [e.id]: e,
+      },
+    });
+  };
 
   return (
     <div>
@@ -64,7 +78,7 @@ const Check = () => {
               id="smell"
               label="Geruchsprobe"
               type="checkbox"
-              onChange={(e) => console.log(e)}
+              onChange={handleCheck}
             />
           </Grid>
           <Grid item xs={12}>
@@ -72,7 +86,7 @@ const Check = () => {
               id="sack"
               label="Sackprobe"
               type="rating"
-              onChange={(e) => console.log(e)}
+              onChange={handleCheck}
             />
           </Grid>
           <Grid item xs={12}>
