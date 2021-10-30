@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
@@ -42,9 +42,9 @@ const CustomerTable = () => {
       .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log('customers', customers);
-  console.log('filteredCustomers', filteredCustomers);
-  console.log('selectedCustomer', selectedCustomer);
+  // console.log('customers', customers);
+  // console.log('filteredCustomers', filteredCustomers);
+  // console.log('selectedCustomer', selectedCustomer);
 
   return (
     <div
@@ -76,18 +76,29 @@ const CustomerTable = () => {
           }}
           hideFooterSelectedRowCount
         />
-        <div>
+        <Box
+          sx={{
+            display: 'grid',
+            gridGap: '2em',
+            justifyContent: 'end',
+            gridAutoFlow: 'column',
+          }}
+        >
           <Button
             variant="contained"
             onClick={() => push('/customer', { selectedCustomer })}
             disabled={!selectedCustomer}
           >
-            Bearbeiten
+            {`${
+              selectedCustomer
+                ? `${selectedCustomer?.lastName} ${selectedCustomer?.firstName}`
+                : ''
+            } Bearbeiten`}
           </Button>
           <Button variant="contained" onClick={() => push('/customer')}>
             Kunde Hinzufügen
           </Button>
-        </div>
+        </Box>
       </div>
     </div>
   );
