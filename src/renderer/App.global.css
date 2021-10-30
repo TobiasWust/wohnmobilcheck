@@ -10,5 +10,11 @@ body {
   ); */
   font-family: sans-serif;
   /* overflow-y: hidden; */
-  /* margin: 5em; */
+  margin: 0;
+  padding: 3em;
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100%;
 }

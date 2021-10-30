@@ -14,10 +14,7 @@ import { handleInput } from '../utils';
 
 export interface ICheck {
   id?: number;
-  lastName: string;
-  firstName: string;
-  street: string;
-  city: string;
+  car: string;
 }
 
 const Check = () => {
@@ -33,7 +30,6 @@ const Check = () => {
   return (
     <div>
       <h1>Check anlegen</h1>
-      <p>Bitte mach ein paar Angaben zum Kunden.</p>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -51,39 +47,24 @@ const Check = () => {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
-              id="lastName"
-              value={check.lastName}
+              id="car"
+              value={check.car}
               onChange={(e) => handleInput(e, useCheck)}
-              label="Nachname"
+              label="Fahrzeug"
               required
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
+            <h2>Außencheck</h2>
+          </Grid>
+          <Grid item xs={12}>
             <TextField
-              id="firstName"
-              value={check.firstName}
+              id="car"
+              value={check.car}
               onChange={(e) => handleInput(e, useCheck)}
-              label="Vorname"
+              label="Fahrzeug"
               required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="street"
-              value={check.street}
-              onChange={(e) => handleInput(e, useCheck)}
-              label="Straße und Hausnummer"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="city"
-              value={check.city}
-              onChange={(e) => handleInput(e, useCheck)}
-              label="Postleitzahl und Ort"
               fullWidth
             />
           </Grid>

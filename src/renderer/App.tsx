@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import api from './api';
 import './App.global.css';
+import Check from './pages/Check';
 import Customer from './pages/Customer';
 import Home from './pages/Home';
 import Setup from './pages/Setup';
@@ -39,6 +40,7 @@ export default function App() {
         <Route exact path="/loader" component={Loader} />
         <Route exact path="/settings" component={Setup} />
         <Route exact path="/customer" component={Customer} />
+        <Route exact path="/check" component={Check} />
       </Switch>
     </Router>
   );

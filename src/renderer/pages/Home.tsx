@@ -16,9 +16,7 @@ const Home = () => {
       style={{
         display: 'grid',
         gridTemplateRows: 'auto 1fr',
-        height: '100vh',
-        padding: '3em',
-        boxSizing: 'border-box',
+        minHeight: '100%',
       }}
     >
       <div>

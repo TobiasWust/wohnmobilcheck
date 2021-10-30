@@ -7,10 +7,8 @@ import api from '../api';
 import { ICheck } from '../pages/Check';
 
 const columns = [
-  { field: 'lastName', headerName: 'Name', width: 150 },
-  { field: 'firstName', headerName: 'Vorname', width: 150 },
-  { field: 'street', headerName: 'Straße', width: 150 },
-  { field: 'city', headerName: 'Stadt', width: 150 },
+  { field: 'car', headerName: 'Fahrzeug', width: 150 },
+  { field: 'created', headerName: 'Angelegt', width: 150 },
 ];
 
 const CheckTable = () => {
@@ -24,10 +22,8 @@ const CheckTable = () => {
 
   useEffect(() => {
     setFilteredChecks(
-      checks.filter(
-        (r) =>
-          r.lastName.toLowerCase().includes(checkFilter.toLowerCase()) ||
-          r.firstName.toLowerCase().includes(checkFilter.toLowerCase())
+      checks.filter((r) =>
+        r.car.toLowerCase().includes(checkFilter.toLowerCase())
       )
     );
   }, [checks, checkFilter]);
@@ -63,7 +59,7 @@ const CheckTable = () => {
         }}
       >
         <TextField
-          label="Namen durchsuchen"
+          label="Fahrzeuge durchsuchen"
           value={checkFilter}
           onChange={(e) => setCheckFilter(e.target.value)}
         />
@@ -89,11 +85,7 @@ const CheckTable = () => {
             onClick={() => push('/check', { selectedCheck })}
             disabled={!selectedCheck}
           >
-            {`${
-              selectedCheck
-                ? `${selectedCheck?.lastName} ${selectedCheck?.firstName}`
-                : ''
-            } Bearbeiten`}
+            Check Bearbeiten
           </Button>
           <Button variant="contained" onClick={() => push('/check')}>
             Check Hinzufügen
