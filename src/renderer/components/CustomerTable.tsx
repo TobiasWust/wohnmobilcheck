@@ -16,7 +16,21 @@ const columns = [
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
   const [customers, setCustomers] = useState<ICustomer[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
+    null
+  );
+  const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
+
+  useEffect(() => {
+    setFilteredCustomers(
+      customers.filter(
+        (r) =>
+          r.lastName.toLowerCase().includes(customerFilter.toLowerCase()) ||
+          r.firstName.toLowerCase().includes(customerFilter.toLowerCase())
+      )
+    );
+  }, [customers, customerFilter]);
 
   useEffect(() => {
     api
@@ -48,16 +62,25 @@ const CustomerTable = () => {
           onChange={(e) => setCustomerFilter(e.target.value)}
         />
         <DataGrid
-          rows={customers.filter(
-            (r) =>
-              r.lastName.toLowerCase().includes(customerFilter.toLowerCase()) ||
-              r.firstName.toLowerCase().includes(customerFilter.toLowerCase())
-          )}
+          rows={filteredCustomers}
           columns={columns}
+          onSelectionModelChange={(e) =>
+            setSelectedCustomer(filteredCustomers[(e[0] as number) - 1])
+          }
+          hideFooterSelectedRowCount
         />
-        <Button variant="contained" onClick={() => push('/customer')}>
-          Kunde Hinzufügen
-        </Button>
+        <div>
+          <Button
+            variant="contained"
+            onClick={() => push('/customer', { selectedCustomer })}
+            disabled={!selectedCustomer}
+          >
+            Bearbeiten
+          </Button>
+          <Button variant="contained" onClick={() => push('/customer')}>
+            Kunde Hinzufügen
+          </Button>
+        </div>
       </div>
     </div>
   );

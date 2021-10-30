@@ -30,9 +30,6 @@ const Home = () => {
         <div>
           <CustomerTable />
         </div>
-        <div>
-          <CustomerTable />
-        </div>
       </div>
     </div>
   );

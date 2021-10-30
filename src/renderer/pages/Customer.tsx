@@ -21,12 +21,16 @@ export interface ICustomer {
 }
 
 const Customer = () => {
-  const { push } = useHistory();
+  const { push, location } = useHistory();
+  const { selectedCustomer } = location.state as {
+    selectedCustomer: Partial<ICustomer>;
+  };
   const useCustomer = useState({
     lastName: '',
     firstName: '',
     street: '',
     city: '',
+    ...selectedCustomer,
   });
   const [customer] = useCustomer;
 
