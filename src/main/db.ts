@@ -36,12 +36,23 @@ const db = {
   createChecksTable: () => {
     edb.createTable('checks', (...args: any) => ({ ...args }));
   },
-  saveCustomer: (config: IConfig) => {
+  saveCustomer: (customer: ICustomer) => {
     return new Promise((resolve) => {
       if (edb.valid('customers')) {
-        edb.insertTableContent('customers', config, (succ: boolean) => {
-          resolve(succ);
-        });
+        if (customer.id) {
+          edb.updateRow(
+            'customers',
+            { id: customer.id },
+            customer,
+            (succ: boolean) => {
+              resolve(succ);
+            }
+          );
+        } else {
+          edb.insertTableContent('customers', customer, (succ: boolean) => {
+            resolve(succ);
+          });
+        }
       }
       resolve(false);
     });

@@ -16,9 +16,9 @@ const columns = [
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
-    null
-  );
+  const [selectedCustomer, setSelectedCustomer] = useState<
+    ICustomer | null | undefined
+  >(null);
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
 
@@ -35,11 +35,17 @@ const CustomerTable = () => {
   useEffect(() => {
     api
       .getCustomers()
-      .then((res: any) => {
+      .then((res: ICustomer[]) => {
         return setCustomers(res);
       })
+      // eslint-disable-next-line no-console
       .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log('customers', customers);
+  console.log('filteredCustomers', filteredCustomers);
+  console.log('selectedCustomer', selectedCustomer);
+
   return (
     <div
       style={{
@@ -64,9 +70,10 @@ const CustomerTable = () => {
         <DataGrid
           rows={filteredCustomers}
           columns={columns}
-          onSelectionModelChange={(e) =>
-            setSelectedCustomer(filteredCustomers[(e[0] as number) - 1])
-          }
+          onSelectionModelChange={(e) => {
+            console.log(e);
+            setSelectedCustomer(customers.find((c) => c.id === e[0]));
+          }}
           hideFooterSelectedRowCount
         />
         <div>

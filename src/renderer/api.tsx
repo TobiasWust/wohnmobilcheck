@@ -8,7 +8,7 @@ declare global {
         saveConfig: any;
         checkForConfig: any;
         getConfig: any;
-        addCustomer: any;
+        saveCustomer: any;
         getCustomers: any;
       };
     };

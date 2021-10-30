@@ -16,7 +16,7 @@ contextBridge.exposeInMainWorld('electron', {
     async getCustomers() {
       return ipcRenderer.invoke('getCustomers');
     },
-    async addCustomer(customer) {
+    async saveCustomer(customer) {
       return ipcRenderer.invoke('saveCustomer', customer);
     },
     on(channel, func) {

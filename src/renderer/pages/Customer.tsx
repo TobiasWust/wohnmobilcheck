@@ -22,16 +22,12 @@ export interface ICustomer {
 
 const Customer = () => {
   const { push, location } = useHistory();
-  const { selectedCustomer } = location.state as {
+  const { selectedCustomer } = (location.state as {
     selectedCustomer: Partial<ICustomer>;
+  }) || {
+    selectedCustomer: { lastName: '', firstName: '', street: '', city: '' },
   };
-  const useCustomer = useState({
-    lastName: '',
-    firstName: '',
-    street: '',
-    city: '',
-    ...selectedCustomer,
-  });
+  const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;
 
   // will need something like this for edit cusotmer later
@@ -51,7 +47,7 @@ const Customer = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const customerSaved = await api.addCustomer(customer);
+          const customerSaved = await api.saveCustomer(customer);
           if (customerSaved) {
             promiseModal(Toast, { type: 'success', message: 'gespeichert' });
             push('/');
