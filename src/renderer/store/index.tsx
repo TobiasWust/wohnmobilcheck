@@ -18,7 +18,12 @@ const useStore = create((set) => ({
     set({ selectedCustomer: customer }),
   resetSelectedCustomer: () =>
     set({
-      selectedCustomer: { lastName: '', firstName: '', street: '', city: '' },
+      selectedCustomer: {
+        lastName: '',
+        firstName: '',
+        street: '',
+        city: '',
+      },
     }),
 
   selectedCheck: {
@@ -32,6 +37,8 @@ const useStore = create((set) => ({
     companyName: '',
     street: '',
     city: '',
+    phone: '',
+    mail: '',
   },
   setSettings: (settings: IConfig) => set({ settings }),
 }));

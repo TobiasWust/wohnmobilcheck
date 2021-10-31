@@ -10,6 +10,8 @@ export interface IConfig {
   companyName: string;
   street: string;
   city: string;
+  phone: string;
+  mail: string;
 }
 
 export interface ICheck {

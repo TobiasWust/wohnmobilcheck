@@ -9,6 +9,10 @@ const CompanyAdress = () => {
         {settings.street}
         <br />
         {settings.city}
+        <br />
+        Telefon: {settings.phone}
+        <br />
+        E-Mail: {settings.mail}
       </p>
     </div>
   );

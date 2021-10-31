@@ -67,6 +67,24 @@ const Setup = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <TextField
+              id="phone"
+              value={settings.phone}
+              onChange={(e) => handleInput(e, useSettings)}
+              label="Telefon"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="mail"
+              value={settings.mail}
+              onChange={(e) => handleInput(e, useSettings)}
+              label="E-Mail"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button type="submit" variant="contained">
                 Speichern
