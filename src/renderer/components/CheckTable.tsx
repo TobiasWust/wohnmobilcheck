@@ -7,32 +7,44 @@ import api from '../api';
 import { ICheck } from '../interfaces/interfaces';
 import useStore from '../store';
 
-const columns = [
-  { field: 'car', headerName: 'Fahrzeug', flex: 1 },
-  {
-    field: 'created',
-    headerName: 'Angelegt',
-    flex: 1,
-    valueFormatter: (params: GridValueFormatterParams) =>
-      new Date(params.value as string).toLocaleDateString(),
-  },
-];
-
 const CheckTable = () => {
   const [checkFilter, setCheckFilter] = useState('');
-  const [checks, setChecks] = useState<ICheck[]>([]);
+  const customers = useStore((state) => state.customers);
+  const checks = useStore((state) => state.checks);
+  const setChecks = useStore((state) => state.setChecks);
   const selectedCheck = useStore((state) => state.selectedCheck);
   const setSelectedCheck = useStore((state) => state.setSelectedCheck);
   const [filteredChecks, setFilteredChecks] = useState<ICheck[]>([]);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const { push } = useHistory();
 
+  const columns = [
+    { field: 'car', headerName: 'Fahrzeug', flex: 1 },
+    {
+      field: 'created',
+      headerName: 'Angelegt',
+      flex: 1,
+      valueFormatter: (params: GridValueFormatterParams) =>
+        new Date(params.value as string).toLocaleDateString(),
+    },
+    {
+      field: 'customerId',
+      headerName: 'Kunde',
+      flex: 1,
+      valueFormatter: (params: GridValueFormatterParams) => {
+        const customer = customers.find((c) => c.id === params.value);
+        if (customer) return `${customer.lastName} ${customer.firstName}`;
+        return 'Customer not found';
+      },
+    },
+  ];
+
   useEffect(() => {
     setFilteredChecks(
       checks.filter(
         (r) =>
           r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
-          r.customerId === selectedCustomer.id
+          r.customerId === (selectedCustomer.id || r.customerId)
       )
     );
   }, [checks, checkFilter, selectedCustomer]);
@@ -59,7 +71,11 @@ const CheckTable = () => {
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      <h2>{`Checks von ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}</h2>
+      <h2>
+        {selectedCustomer.id
+          ? `Checks von ${selectedCustomer.lastName} ${selectedCustomer.firstName}`
+          : 'Alle Checks'}
+      </h2>
       <div
         style={{
           display: 'grid',
@@ -75,6 +91,7 @@ const CheckTable = () => {
         <DataGrid
           rows={filteredChecks}
           columns={columns}
+          autoPageSize
           onSelectionModelChange={(e) => {
             const check = checks.find((c) => c.id === e[0]);
             if (check) setSelectedCheck(check);

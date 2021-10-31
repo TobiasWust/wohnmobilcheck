@@ -2,8 +2,14 @@ import create from 'zustand';
 import { IConfig, ICustomer, ICheck } from '../interfaces/interfaces';
 
 const useStore = create((set) => ({
+  customers: [] as ICustomer[],
+  setCustomers: (customers: ICustomer[]) => set({ customers }),
+
+  checks: [] as ICheck[],
+  setChecks: (checks: ICheck[]) => set({ checks }),
+
   selectedCustomer: {
-    lastName: 'test',
+    lastName: '',
     firstName: '',
     street: '',
     city: '',

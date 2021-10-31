@@ -16,7 +16,8 @@ const columns = [
 
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
-  const [customers, setCustomers] = useState<ICustomer[]>([]);
+  const customers = useStore((state) => state.customers);
+  const setCustomers = useStore((state) => state.setCustomers);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const setSelectedCustomer = useStore((state) => state.setSelectedCustomer);
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
@@ -70,6 +71,7 @@ const CustomerTable = () => {
         <DataGrid
           rows={filteredCustomers}
           columns={columns}
+          autoPageSize
           selectionModel={selectedCustomer.id}
           onSelectionModelChange={(e) => {
             const customer = customers.find((c) => c.id === e[0]);
