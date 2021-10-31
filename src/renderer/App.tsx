@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core';
 import { useEffect } from 'react';
 import {
   MemoryRouter as Router,
@@ -19,7 +20,6 @@ const Loader = () => {
   const setSettings = useStore((state) => state.setSettings);
 
   useEffect(() => {
-    console.log('hier komm ich her');
     api
       .checkForConfig()
       .then((hasConfig: boolean) => {
@@ -31,6 +31,7 @@ const Loader = () => {
               return push('/');
             })
             .catch(console.log);
+          return null;
         }
         return push('/settings');
       })
@@ -38,8 +39,15 @@ const Loader = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div>
-      <h1>Loading</h1>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'grid',
+        placeContent: 'center',
+      }}
+    >
+      <CircularProgress color="primary" />
     </div>
   );
 };
