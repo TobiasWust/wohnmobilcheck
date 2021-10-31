@@ -5,7 +5,7 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import CheckItem from '../components/CheckItem';
@@ -15,6 +15,7 @@ import { handleInput } from '../utils';
 
 export interface ICheck {
   id?: number;
+  customerId: number;
   car: string;
   values: any;
 }

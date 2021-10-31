@@ -19,8 +19,6 @@ const Customer = () => {
   const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;
 
-  useContext();
-
   // will need something like this for edit cusotmer later
   // useEffect(() => {
   //   api

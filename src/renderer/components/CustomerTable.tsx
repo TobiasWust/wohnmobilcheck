@@ -4,7 +4,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
-import { ICustomer } from '../pages/Customer';
+import { ICustomer } from '../interfaces/interfaces';
+import useSelectedCustomer from './useSelectedCustomer';
 
 const columns = [
   { field: 'lastName', headerName: 'Name', width: 150 },
@@ -16,9 +17,7 @@ const columns = [
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState<
-    ICustomer | null | undefined
-  >(null);
+  const [selectedCustomer, setSelectedCustomer] = useSelectedCustomer();
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
 
@@ -71,8 +70,8 @@ const CustomerTable = () => {
           rows={filteredCustomers}
           columns={columns}
           onSelectionModelChange={(e) => {
-            console.log(e);
-            setSelectedCustomer(customers.find((c) => c.id === e[0]));
+            const customer = customers.find((c) => c.id === e[0]);
+            if (customer) setSelectedCustomer(customer);
           }}
           hideFooterSelectedRowCount
         />

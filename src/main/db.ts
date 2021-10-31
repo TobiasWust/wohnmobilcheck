@@ -1,5 +1,5 @@
+import { ICustomer } from '../renderer/interfaces/interfaces';
 import { ICheck } from '../renderer/pages/Check';
-import { ICustomer } from '../renderer/pages/Customer';
 import { IConfig } from '../renderer/pages/Setup';
 
 const edb = require('electron-db');
