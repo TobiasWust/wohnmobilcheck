@@ -69,6 +69,7 @@ const CustomerTable = () => {
         <DataGrid
           rows={filteredCustomers}
           columns={columns}
+          selectionModel={selectedCustomer.id}
           onSelectionModelChange={(e) => {
             const customer = customers.find((c) => c.id === e[0]);
             if (customer) setSelectedCustomer(customer);

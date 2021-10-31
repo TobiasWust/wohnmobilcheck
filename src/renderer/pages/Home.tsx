@@ -1,5 +1,4 @@
-import { Button } from '@material-ui/core';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import CheckTable from '../components/CheckTable';
 import CustomerTable from '../components/CustomerTable';
 // search customer
@@ -10,7 +9,6 @@ import CustomerTable from '../components/CustomerTable';
 // check table
 // create check
 const Home = () => {
-  const { push } = useHistory();
   return (
     <div
       style={{
@@ -19,12 +17,9 @@ const Home = () => {
         minHeight: '100%',
       }}
     >
-      <div>
-        <h1>Wust Wohnwagen Checker</h1>
-        <Button variant="contained" onClick={() => push('/settings')}>
-          Firmendaten ändern
-        </Button>
-      </div>
+      <h1>
+        <Link to="/settings">Wust</Link> Wohnwagen Checker
+      </h1>
       <div style={{ display: 'grid', gridAutoFlow: 'column', gap: '2em' }}>
         <div>
           <CustomerTable />

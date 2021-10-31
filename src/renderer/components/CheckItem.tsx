@@ -13,14 +13,23 @@ interface ICheckItem {
   label: string;
   type: 'checkbox' | 'rating';
   onChange: (value: IValue) => void;
+  value: IValue;
 }
 
-const CheckItem = ({ id, label, type, onChange: handleChange }: ICheckItem) => {
-  const [value, setValue] = useState<IValue>({
-    id,
-    value: type === 'checkbox' ? false : 0,
-    note: '',
-  });
+const CheckItem = ({
+  id,
+  label,
+  type,
+  onChange: handleChange,
+  value: defaultValue,
+}: ICheckItem) => {
+  const [value, setValue] = useState<IValue>(
+    defaultValue || {
+      id,
+      value: type === 'checkbox' ? false : 0,
+      note: '',
+    }
+  );
 
   useEffect(() => {
     handleChange(value);
@@ -56,6 +65,7 @@ const CheckItem = ({ id, label, type, onChange: handleChange }: ICheckItem) => {
         size="small"
         // onChange={(e) => handleInput(e, useCheck)}
         label="Anmerkung"
+        value={value.note}
         onChange={(e) => setValue({ ...value, note: e.target.value })}
       />
     </div>

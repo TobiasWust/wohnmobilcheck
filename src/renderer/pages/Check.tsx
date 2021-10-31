@@ -88,6 +88,7 @@ const Check = () => {
           <Grid item xs={12}>
             <CheckItem
               id="smell"
+              value={check.values.smell}
               label="Geruchsprobe"
               type="checkbox"
               onChange={handleCheck}
@@ -96,6 +97,7 @@ const Check = () => {
           <Grid item xs={12}>
             <CheckItem
               id="sack"
+              value={check.values.sack}
               label="Sackprobe"
               type="rating"
               onChange={handleCheck}
