@@ -18,7 +18,7 @@ export interface ICheck {
   id?: number;
   customerId: number;
   car: string;
-  created: Date;
+  created: string;
   values: any;
 }
 
@@ -30,7 +30,7 @@ const Check = () => {
   }) || {
     selectedCheck: {
       customerId: selectedCustomer.id,
-      created: new Date(),
+      created: new Date().toString(),
       car: '',
       values: {},
     },
@@ -54,7 +54,9 @@ const Check = () => {
       <p>
         {`Kunde: ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}
       </p>
-      <p>{`Check angelegt: ${check.created?.toLocaleDateString()}`}</p>
+      <p>{`Check angelegt: ${new Date(
+        check.created as string
+      ).toLocaleDateString()}`}</p>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
