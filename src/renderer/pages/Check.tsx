@@ -422,6 +422,7 @@ const Check = () => {
                 gridGap: '2em',
                 justifyContent: 'end',
                 gridAutoFlow: 'column',
+                padding: '2em',
               }}
             >
               <Button variant="contained" onClick={() => push('/')}>

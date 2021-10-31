@@ -41,7 +41,7 @@ const CheckItem = ({
   }, [value]);
 
   return (
-    <div style={{ display: 'grid' }}>
+    <div className="no-break" style={{ display: 'grid' }}>
       <div
         style={{
           display: 'flex',

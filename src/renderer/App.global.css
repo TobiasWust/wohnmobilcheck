@@ -11,6 +11,12 @@ body {
   height: 100%;
 }
 
+.no-break {
+  page-break-inside: avoid;
+  break-inside: avoid;
+  position: relative;
+}
+
 @media print
 {
   .no-print, .no-print *
