@@ -4,7 +4,7 @@ import { DataGrid, GridValueFormatterParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
-import { ICheck } from '../pages/Check';
+import { ICheck } from '../interfaces/interfaces';
 import useStore from '../store';
 
 const columns = [
@@ -21,9 +21,8 @@ const columns = [
 const CheckTable = () => {
   const [checkFilter, setCheckFilter] = useState('');
   const [checks, setChecks] = useState<ICheck[]>([]);
-  const [selectedCheck, setSelectedCheck] = useState<ICheck | null | undefined>(
-    null
-  );
+  const selectedCheck = useStore((state) => state.selectedCheck);
+  const setSelectedCheck = useStore((state) => state.setSelectedCheck);
   const [filteredChecks, setFilteredChecks] = useState<ICheck[]>([]);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const { push } = useHistory();
@@ -77,7 +76,8 @@ const CheckTable = () => {
           rows={filteredChecks}
           columns={columns}
           onSelectionModelChange={(e) => {
-            setSelectedCheck(checks.find((c) => c.id === e[0]));
+            const check = checks.find((c) => c.id === e[0]);
+            if (check) setSelectedCheck(check);
           }}
           hideFooterSelectedRowCount
         />
@@ -92,7 +92,7 @@ const CheckTable = () => {
           <Button
             variant="contained"
             onClick={() => push('/check', { selectedCheck })}
-            disabled={!selectedCheck}
+            disabled={!selectedCheck.id}
           >
             Check Bearbeiten
           </Button>

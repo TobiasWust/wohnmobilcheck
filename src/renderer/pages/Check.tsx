@@ -5,7 +5,7 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import CheckItem from '../components/CheckItem';
@@ -14,29 +14,24 @@ import promiseModal from '../helper/promiseModal';
 import useStore from '../store';
 import { handleInput } from '../utils';
 
-export interface ICheck {
-  id?: number;
-  customerId: number;
-  car: string;
-  created: string;
-  values: any;
-}
-
 const Check = () => {
-  const { push, location } = useHistory();
+  const { push } = useHistory();
+  const selectedCheck = useStore((state) => state.selectedCheck);
+  const setSelectedCheck = useStore((state) => state.setSelectedCheck);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
-  const { selectedCheck } = (location.state as {
-    selectedCheck: Partial<ICheck>;
-  }) || {
-    selectedCheck: {
-      customerId: selectedCustomer.id,
-      created: new Date().toString(),
-      car: '',
-      values: {},
-    },
-  };
+
   const useCheck = useState(selectedCheck);
   const [check, setCheck] = useCheck;
+
+  useEffect(() => {
+    if (selectedCheck.id) return;
+    if (selectedCustomer.id)
+      setSelectedCheck({
+        ...selectedCheck,
+        created: new Date().toString(),
+        customerId: selectedCustomer.id,
+      });
+  }, [selectedCheck, selectedCustomer, setSelectedCheck]);
 
   const handleCheck = (e: any) => {
     setCheck({
@@ -50,7 +45,7 @@ const Check = () => {
 
   return (
     <div>
-      <h1>Check anlegen</h1>
+      <h1>Check {selectedCheck.id ? 'bearbeiten' : 'anlegen'}</h1>
       <p>
         {`Kunde: ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}
       </p>

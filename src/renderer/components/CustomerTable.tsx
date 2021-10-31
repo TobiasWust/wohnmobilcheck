@@ -17,7 +17,8 @@ const columns = [
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const { selectedCustomer, setSelectedCustomer } = useStore();
+  const selectedCustomer = useStore((state) => state.selectedCustomer);
+  const setSelectedCustomer = useStore((state) => state.setSelectedCustomer);
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
 
