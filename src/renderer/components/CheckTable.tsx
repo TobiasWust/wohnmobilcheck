@@ -43,11 +43,12 @@ const CheckTable = () => {
     setFilteredChecks(
       checks.filter(
         (r) =>
-          r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
-          r.customerId === (selectedCustomer.id || r.customerId)
+          (r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
+            r.customerId === (selectedCustomer.id || r.customerId)) ||
+          r.id === selectedCheck.id
       )
     );
-  }, [checks, checkFilter, selectedCustomer]);
+  }, [checks, checkFilter, selectedCustomer, selectedCheck.id]);
 
   useEffect(() => {
     api

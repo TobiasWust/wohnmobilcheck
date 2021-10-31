@@ -5,7 +5,7 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import CheckItem from '../components/CheckItem';
@@ -17,8 +17,14 @@ import { handleInput } from '../utils';
 const Check = () => {
   const { push } = useHistory();
   const selectedCheck = useStore((state) => state.selectedCheck);
+  const customers = useStore((state) => state.customers);
   const setSelectedCheck = useStore((state) => state.setSelectedCheck);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
+
+  const customer = useMemo(
+    () => customers.find((c) => c.id === selectedCheck.customerId),
+    [selectedCheck.customerId, customers]
+  );
 
   const useCheck = useState(selectedCheck);
   const [check, setCheck] = useCheck;
@@ -46,9 +52,7 @@ const Check = () => {
   return (
     <div>
       <h1>Check {selectedCheck.id ? 'bearbeiten' : 'anlegen'}</h1>
-      <p>
-        {`Kunde: ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}
-      </p>
+      <p>{`Kunde: ${customer?.lastName} ${customer?.firstName}`}</p>
       <p>{`Check angelegt: ${new Date(
         check.created as string
       ).toLocaleDateString()}`}</p>

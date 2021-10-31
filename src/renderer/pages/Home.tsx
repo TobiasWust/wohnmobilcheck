@@ -22,7 +22,9 @@ const Home = () => {
       <h1>
         <Link to="/settings">{settings.companyName}</Link> Wohnwagen Checker
       </h1>
-      <div style={{ display: 'grid', gridAutoFlow: 'column', gap: '2em' }}>
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2em' }}
+      >
         <div>
           <CustomerTable />
         </div>

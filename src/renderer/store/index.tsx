@@ -16,12 +16,17 @@ const useStore = create((set) => ({
   } as ICustomer,
   setSelectedCustomer: (customer: ICustomer) =>
     set({ selectedCustomer: customer }),
+  resetSelectedCustomer: () =>
+    set({
+      selectedCustomer: { lastName: '', firstName: '', street: '', city: '' },
+    }),
 
   selectedCheck: {
     car: '',
     values: {},
   } as ICheck,
   setSelectedCheck: (check: ICheck) => set({ selectedCheck: check }),
+  resetSelectedCheck: () => set({ selectedCheck: { car: '', values: {} } }),
 
   settings: {
     companyName: '',

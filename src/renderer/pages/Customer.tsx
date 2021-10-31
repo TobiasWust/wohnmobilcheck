@@ -14,7 +14,12 @@ import useStore from '../store';
 import { handleInput } from '../utils';
 
 const Customer = () => {
-  const { push } = useHistory();
+  const { push, location } = useHistory();
+  const { edit } = location.state as { edit: boolean };
+  const resetSelectedCustomer = useStore(
+    (state) => state.resetSelectedCustomer
+  );
+  if (!edit) resetSelectedCustomer();
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;

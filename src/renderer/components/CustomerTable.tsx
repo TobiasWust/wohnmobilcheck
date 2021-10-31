@@ -89,7 +89,7 @@ const CustomerTable = () => {
         >
           <Button
             variant="contained"
-            onClick={() => push('/customer', { selectedCustomer })}
+            onClick={() => push('/customer', { edit: true })}
             disabled={!selectedCustomer}
           >
             {`${
@@ -98,7 +98,10 @@ const CustomerTable = () => {
                 : ''
             } Bearbeiten`}
           </Button>
-          <Button variant="contained" onClick={() => push('/customer')}>
+          <Button
+            variant="contained"
+            onClick={() => push('/customer', { edit: false })}
+          >
             Kunde Hinzufügen
           </Button>
         </Box>
