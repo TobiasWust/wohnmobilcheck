@@ -3,36 +3,19 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import Toast from '../components/Toast';
 import promiseModal from '../helper/promiseModal';
+import useStore from '../store';
 import { handleInput } from '../utils';
-
-export interface IConfig {
-  companyName: string;
-  street: string;
-  city: string;
-}
 
 const Setup = () => {
   const { push } = useHistory();
-  const useSettings = useState({
-    companyName: '',
-    street: '',
-    city: '',
-  });
-  const [settings, setSettings] = useSettings;
+  const settings = useStore((state) => state.settings);
+  const setSettings = useStore((state) => state.setSettings);
 
-  useEffect(() => {
-    api
-      .getConfig()
-      .then((res: any) => {
-        return setSettings(res[0]);
-      })
-      .catch(console.log);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const useSettings = [settings, setSettings];
 
   return (
     <div

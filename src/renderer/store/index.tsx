@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { ICustomer } from '../interfaces/interfaces';
+import { IConfig, ICustomer } from '../interfaces/interfaces';
 
 const useStore = create((set) => ({
   selectedCustomer: {
@@ -10,6 +10,13 @@ const useStore = create((set) => ({
   } as ICustomer,
   setSelectedCustomer: (customer: ICustomer) =>
     set({ selectedCustomer: customer }),
+
+  settings: {
+    companyName: '',
+    street: '',
+    city: '',
+  },
+  setSettings: (settings: IConfig) => set({ settings }),
 }));
 
 export default useStore;

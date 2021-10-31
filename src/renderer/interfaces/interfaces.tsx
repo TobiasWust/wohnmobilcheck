@@ -5,3 +5,9 @@ export interface ICustomer {
   street: string;
   city: string;
 }
+
+export interface IConfig {
+  companyName: string;
+  street: string;
+  city: string;
+}

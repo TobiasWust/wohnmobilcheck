@@ -11,15 +11,25 @@ import Check from './pages/Check';
 import Customer from './pages/Customer';
 import Home from './pages/Home';
 import Setup from './pages/Setup';
+import useStore from './store';
 
 const Loader = () => {
   const { push } = useHistory();
+  const setSettings = useStore((state) => state.setSettings);
 
   useEffect(() => {
     api
       .checkForConfig()
       .then((hasConfig: boolean) => {
-        if (hasConfig) return push('/');
+        if (hasConfig) {
+          api
+            .getConfig()
+            .then((res: any) => {
+              setSettings(res[0]);
+              return push('/');
+            })
+            .catch(console.log);
+        }
         return push('/setup');
       })
       .catch(console.log);

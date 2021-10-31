@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import CheckTable from '../components/CheckTable';
 import CustomerTable from '../components/CustomerTable';
+import useStore from '../store';
 // search customer
 // customer table
 // create customer
@@ -9,6 +10,7 @@ import CustomerTable from '../components/CustomerTable';
 // check table
 // create check
 const Home = () => {
+  const settings = useStore((state) => state.settings);
   return (
     <div
       style={{
@@ -18,7 +20,7 @@ const Home = () => {
       }}
     >
       <h1>
-        <Link to="/settings">Wust</Link> Wohnwagen Checker
+        <Link to="/settings">{settings.companyName}</Link> Wohnwagen Checker
       </h1>
       <div style={{ display: 'grid', gridAutoFlow: 'column', gap: '2em' }}>
         <div>
