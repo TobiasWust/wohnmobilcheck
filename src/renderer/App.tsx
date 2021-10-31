@@ -19,6 +19,7 @@ const Loader = () => {
   const setSettings = useStore((state) => state.setSettings);
 
   useEffect(() => {
+    console.log('hier komm ich her');
     api
       .checkForConfig()
       .then((hasConfig: boolean) => {
@@ -31,7 +32,7 @@ const Loader = () => {
             })
             .catch(console.log);
         }
-        return push('/setup');
+        return push('/settings');
       })
       .catch(console.log);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

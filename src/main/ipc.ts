@@ -7,10 +7,10 @@ const registerIpc = () => {
   });
 
   ipcMain.handle('saveConfig', async (_e, settings) => {
-    if (!db.configExists()) {
-      db.createConfigTable();
-      db.createCustomersTable();
-      db.createChecksTable();
+    if (!(await db.configExists())) {
+      await db.createConfigTable();
+      await db.createCustomersTable();
+      await db.createChecksTable();
     }
     return db.saveConfig(settings);
   });

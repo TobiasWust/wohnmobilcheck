@@ -1,4 +1,2 @@
-- check protocol
 - print function (=> export pdf)
-- Fix metadata
 - autoupdate stuff
