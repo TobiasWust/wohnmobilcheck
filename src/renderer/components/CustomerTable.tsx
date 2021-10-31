@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import { ICustomer } from '../interfaces/interfaces';
-import useSelectedCustomer from './useSelectedCustomer';
+import useStore from '../store';
 
 const columns = [
   { field: 'lastName', headerName: 'Name', width: 150 },
@@ -17,7 +17,7 @@ const columns = [
 const CustomerTable = () => {
   const [customerFilter, setCustomerFilter] = useState('');
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useSelectedCustomer();
+  const { selectedCustomer, setSelectedCustomer } = useStore();
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
 

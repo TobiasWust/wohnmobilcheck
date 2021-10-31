@@ -5,17 +5,17 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import Toast from '../components/Toast';
-import useSelectedCustomer from '../components/useSelectedCustomer';
 import promiseModal from '../helper/promiseModal';
+import useStore from '../store';
 import { handleInput } from '../utils';
 
 const Customer = () => {
   const { push } = useHistory();
-  const [selectedCustomer] = useSelectedCustomer();
+  const selectedCustomer = useStore((state) => state.selectedCustomer);
   const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;
 

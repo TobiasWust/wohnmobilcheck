@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import { ICheck } from '../pages/Check';
-import useSelectedCustomer from './useSelectedCustomer';
+import useStore from '../store';
 
 const columns = [
   { field: 'car', headerName: 'Fahrzeug', width: 150 },
@@ -19,7 +19,7 @@ const CheckTable = () => {
     null
   );
   const [filteredChecks, setFilteredChecks] = useState<ICheck[]>([]);
-  const [selectedCustomer] = useSelectedCustomer();
+  const selectedCustomer = useStore((state) => state.selectedCustomer);
   const { push } = useHistory();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const CheckTable = () => {
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      <h2>Checks von {selectedCustomer.lastName}</h2>
+      <h2>{`Checks von ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}</h2>
       <div
         style={{
           display: 'grid',
