@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
 import { useMemo } from 'react';
 import { useHistory } from 'react-router';
+import api from '../api';
 import CheckItem from '../components/CheckItem';
 import CompanyAdress from '../components/CompanyAdress';
 import CustomerAdress from '../components/CustomerAdress';
@@ -296,18 +297,20 @@ const Protocol = () => {
           disabled
         />
         <Box
+          className="no-print"
           sx={{
             display: 'grid',
             gridGap: '2em',
             justifyContent: 'end',
             gridAutoFlow: 'column',
+            padding: '2em',
           }}
         >
           <Button variant="contained" onClick={() => push('/')}>
-            Abbrechen
+            Schließen
           </Button>
-          <Button type="submit" variant="contained">
-            Speichern
+          <Button variant="contained" onClick={() => api.print()}>
+            Drucken
           </Button>
         </Box>
       </div>

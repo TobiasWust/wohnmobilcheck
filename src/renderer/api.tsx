@@ -12,6 +12,7 @@ declare global {
         getCustomers: any;
         saveCheck: any;
         getChecks: any;
+        print: any;
       };
     };
   }

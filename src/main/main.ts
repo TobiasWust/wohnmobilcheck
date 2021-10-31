@@ -11,10 +11,10 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
+// import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import registerIpc from './ipc';
 
@@ -29,6 +29,10 @@ export default class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 registerIpc();
+
+ipcMain.handle('print', async () => {
+  mainWindow?.webContents.print();
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -70,9 +74,11 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    // width: 1024,
+    // height: 728,
     icon: getAssetPath('icon.png'),
+
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       // devTools: false,
@@ -97,8 +103,9 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
+  // console.log(menuBuilder);
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {
