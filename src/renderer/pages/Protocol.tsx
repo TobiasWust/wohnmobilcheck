@@ -38,7 +38,7 @@ const Protocol = () => {
       <p>
         <strong>Fahrzeug:</strong> {check.car}
       </p>
-      <div style={{ display: 'grid', position: 'relative' }}>
+      <div>
         <div className="no-break" style={{ display: 'grid' }}>
           <h2>Dokumente</h2>
           <CheckItem
