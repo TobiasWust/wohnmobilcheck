@@ -12,6 +12,7 @@ interface ICheckItem {
   id: string;
   label: string;
   type: 'checkbox' | 'rating';
+  details?: string;
   onChange: (value: IValue) => void;
   value: IValue;
 }
@@ -20,6 +21,7 @@ const CheckItem = ({
   id,
   label,
   type,
+  details = '',
   onChange: handleChange,
   value: defaultValue,
 }: ICheckItem) => {
@@ -45,7 +47,10 @@ const CheckItem = ({
           alignItems: 'center',
         }}
       >
-        <span>{label}</span>
+        <span>
+          {label}
+          {details && <small>{` - ${details}`}</small>}
+        </span>
         {type === 'checkbox' && (
           <Checkbox
             checked={value.value as boolean}
