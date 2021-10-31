@@ -60,7 +60,7 @@ const CheckItem = ({
             inputProps={{ 'aria-label': label }}
             sx={{
               '& .MuiSvgIcon-root': { fontSize: 40 },
-              '&.Mui-disabled': { color: '#05E88E' },
+              '&.Mui-disabled': { color: '#05E88E', padding: 0 },
             }}
             onChange={(_e, v) => setValue({ ...value, value: v })}
           />

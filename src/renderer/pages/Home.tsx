@@ -15,13 +15,12 @@ const Home = () => {
     <div
       style={{
         display: 'grid',
-        gridTemplateRows: 'auto 1fr',
+        gridTemplateRows: 'auto 1fr auto',
         minHeight: '100%',
       }}
     >
       <h1>
         <Link to="/settings">{settings.companyName}</Link> Wohnwagen Checker
-        <small>v0.1.0</small>
       </h1>
       <div
         style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2em' }}
@@ -32,6 +31,9 @@ const Home = () => {
         <div>
           <CheckTable />
         </div>
+      </div>
+      <div>
+        <small>v0.1.0</small>
       </div>
     </div>
   );

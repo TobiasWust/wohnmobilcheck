@@ -270,14 +270,14 @@ const Protocol = () => {
         <CheckItem
           id="dichtwater"
           value={check.values.dichtwater}
-          label="Dichtigkeisprüfung Wasser"
+          label="Dichtigkeitsprüfung Wasser"
           type="checkbox"
           disabled
         />
         <CheckItem
           id="dichtgas"
           value={check.values.dichtgas}
-          label="Dichtigkeisprüfung Gas"
+          label="Dichtigkeitsprüfung Gas"
           type="checkbox"
           disabled
         />
