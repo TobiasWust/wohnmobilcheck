@@ -109,6 +109,13 @@ const CheckTable = () => {
         >
           <Button
             variant="contained"
+            onClick={() => push('/protocol')}
+            disabled={!selectedCheck.id}
+          >
+            Protokoll Öffnen
+          </Button>
+          <Button
+            variant="contained"
             onClick={() => push('/check')}
             disabled={!selectedCheck.id}
           >

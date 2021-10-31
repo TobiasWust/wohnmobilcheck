@@ -45,19 +45,24 @@ function IconContainer(props: IconContainerProps) {
 const Rating = ({
   onChange: handleChange,
   value,
+  disabled = false,
 }: {
   onChange: (event: React.SyntheticEvent, value: number | null) => void;
   value: number;
+  disabled?: boolean;
 }) => {
   return (
     <MuiRating
+      disabled={disabled}
       name="highlight-selected-only"
       value={value}
       IconContainerComponent={IconContainer}
       sx={{
+        '&.Mui-disabled ': { opacity: 1 },
+        '&.Mui-disabled .MuiRating-iconEmpty': { display: 'none' },
         '& .MuiSvgIcon-root': { fontSize: 40 },
         '& .MuiRating-iconFilled': {
-          color: '#1976d2',
+          color: disabled ? '#05E88E' : '#1976d2',
         },
       }}
       highlightSelectedOnly

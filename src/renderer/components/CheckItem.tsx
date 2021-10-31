@@ -13,7 +13,8 @@ interface ICheckItem {
   label: string;
   type: 'checkbox' | 'rating';
   details?: string;
-  onChange: (value: IValue) => void;
+  onChange?: (value: IValue) => void;
+  disabled?: boolean;
   value: IValue;
 }
 
@@ -22,7 +23,8 @@ const CheckItem = ({
   label,
   type,
   details = '',
-  onChange: handleChange,
+  onChange: handleChange = () => {},
+  disabled = false,
   value: defaultValue,
 }: ICheckItem) => {
   const [value, setValue] = useState<IValue>(
@@ -54,8 +56,12 @@ const CheckItem = ({
         {type === 'checkbox' && (
           <Checkbox
             checked={value.value as boolean}
+            disabled={disabled}
             inputProps={{ 'aria-label': label }}
-            sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
+            sx={{
+              '& .MuiSvgIcon-root': { fontSize: 40 },
+              '&.Mui-disabled': { color: '#05E88E' },
+            }}
             onChange={(_e, v) => setValue({ ...value, value: v })}
           />
         )}
@@ -63,16 +69,25 @@ const CheckItem = ({
           <Rating
             value={value.value as number}
             onChange={(_e, v) => setValue({ ...value, value: v })}
+            disabled={disabled}
           />
         )}
       </div>
-      <TextField
-        size="small"
-        // onChange={(e) => handleInput(e, useCheck)}
-        label="Anmerkung"
-        value={value.note}
-        onChange={(e) => setValue({ ...value, note: e.target.value })}
-      />
+      {disabled ? (
+        value.note && (
+          <span style={{ fontStyle: 'italic', paddingLeft: '2em' }}>
+            {value.note}
+          </span>
+        )
+      ) : (
+        <TextField
+          size="small"
+          // onChange={(e) => handleInput(e, useCheck)}
+          label="Anmerkung"
+          value={value.note}
+          onChange={(e) => setValue({ ...value, note: e.target.value })}
+        />
+      )}
     </div>
   );
 };
