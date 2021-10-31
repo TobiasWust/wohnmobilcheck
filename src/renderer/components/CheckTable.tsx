@@ -44,9 +44,8 @@ const CheckTable = () => {
     setFilteredChecks(
       checks.filter(
         (r) =>
-          (r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
-            r.customerId === (selectedCustomer.id || r.customerId)) ||
-          r.id === selectedCheck.id
+          r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
+          r.customerId === (selectedCustomer.id || r.customerId)
       )
     );
   }, [checks, checkFilter, selectedCustomer, selectedCheck.id]);

@@ -19,16 +19,6 @@ const Customer = () => {
   const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;
 
-  // will need something like this for edit cusotmer later
-  // useEffect(() => {
-  //   api
-  //     .getConfig()
-  //     .then((res: any) => {
-  //       return setCustomer(res[0]);
-  //     })
-  //     .catch(console.log);
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <div>
       <h1>Kunden {selectedCustomer.id ? 'bearbeiten' : 'anlegen'}</h1>

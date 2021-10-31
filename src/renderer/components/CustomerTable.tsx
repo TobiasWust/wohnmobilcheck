@@ -20,6 +20,7 @@ const CustomerTable = () => {
   const setCustomers = useStore((state) => state.setCustomers);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const setSelectedCustomer = useStore((state) => state.setSelectedCustomer);
+  const resetSelectedCheck = useStore((state) => state.resetSelectedCheck);
   const resetSelectedCustomer = useStore(
     (state) => state.resetSelectedCustomer
   );
@@ -72,13 +73,15 @@ const CustomerTable = () => {
           onChange={(e) => setCustomerFilter(e.target.value)}
         />
         <DataGrid
-          rows={filteredCustomers}
+          rows={[{ id: 0, lastName: 'Alle anzeigen' }, ...filteredCustomers]}
           columns={columns}
           autoPageSize
-          selectionModel={selectedCustomer.id}
+          selectionModel={selectedCustomer.id || 0}
           onSelectionModelChange={(e) => {
+            resetSelectedCheck();
             const customer = customers.find((c) => c.id === e[0]);
             if (customer) setSelectedCustomer(customer);
+            else resetSelectedCustomer();
           }}
           hideFooterSelectedRowCount
         />

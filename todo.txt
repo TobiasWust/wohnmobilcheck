@@ -1,4 +1,24 @@
 - add all check items
-- get customer in check from id
 - check protocol
 - print function (=> export pdf)
+
+
+check items:
+Unterlagen
+Fahrzeug schein verglichen mit FJN
+HU Unterlagen
+Gasprüfbuch und Palette
+Fahrzeugschein ZGG Führerscheinklasse
+
+Sicherheitsausstattung
+Warndreieck
+Vorlegekeile
+Erste Hilfe Kasten
+Lichttest / Beleuchtung
+Scheinwerfereinstellug
+
+Außenprüfing
+Sichtprüfung außen (Unfallschaden, Hagelschade, geklebte Teile)
+Sichtprüfung Fahrzeugtechnik
+Sichtprüfung oben (Ausbauten, Befestigungen Dachluken)
+Sichtprüfung Unterboden (Rost, Versiegelung, Schmutz, Anbauteile)
