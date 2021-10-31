@@ -20,6 +20,9 @@ const CustomerTable = () => {
   const setCustomers = useStore((state) => state.setCustomers);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const setSelectedCustomer = useStore((state) => state.setSelectedCustomer);
+  const resetSelectedCustomer = useStore(
+    (state) => state.resetSelectedCustomer
+  );
   const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>([]);
   const { push } = useHistory();
 
@@ -89,7 +92,7 @@ const CustomerTable = () => {
         >
           <Button
             variant="contained"
-            onClick={() => push('/customer', { edit: true })}
+            onClick={() => push('/customer')}
             disabled={!selectedCustomer}
           >
             {`${
@@ -100,7 +103,10 @@ const CustomerTable = () => {
           </Button>
           <Button
             variant="contained"
-            onClick={() => push('/customer', { edit: false })}
+            onClick={() => {
+              resetSelectedCustomer();
+              push('/customer');
+            }}
           >
             Kunde Hinzufügen
           </Button>

@@ -5,7 +5,7 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import CheckItem from '../components/CheckItem';
@@ -16,10 +16,17 @@ import { handleInput } from '../utils';
 
 const Check = () => {
   const { push } = useHistory();
-  const selectedCheck = useStore((state) => state.selectedCheck);
-  const customers = useStore((state) => state.customers);
-  const setSelectedCheck = useStore((state) => state.setSelectedCheck);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
+  const selectedCheck = useStore((state) =>
+    state.selectedCheck.id
+      ? state.selectedCheck
+      : {
+          ...state.selectedCheck,
+          created: new Date().toISOString(),
+          customerId: selectedCustomer.id,
+        }
+  );
+  const customers = useStore((state) => state.customers);
 
   const customer = useMemo(
     () => customers.find((c) => c.id === selectedCheck.customerId),
@@ -28,16 +35,6 @@ const Check = () => {
 
   const useCheck = useState(selectedCheck);
   const [check, setCheck] = useCheck;
-
-  useEffect(() => {
-    if (selectedCheck.id) return;
-    if (selectedCustomer.id)
-      setSelectedCheck({
-        ...selectedCheck,
-        created: new Date().toString(),
-        customerId: selectedCustomer.id,
-      });
-  }, [selectedCheck, selectedCustomer, setSelectedCheck]);
 
   const handleCheck = (e: any) => {
     setCheck({

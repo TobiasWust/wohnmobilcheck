@@ -14,6 +14,7 @@ const CheckTable = () => {
   const setChecks = useStore((state) => state.setChecks);
   const selectedCheck = useStore((state) => state.selectedCheck);
   const setSelectedCheck = useStore((state) => state.setSelectedCheck);
+  const resetSelectedCheck = useStore((state) => state.resetSelectedCheck);
   const [filteredChecks, setFilteredChecks] = useState<ICheck[]>([]);
   const selectedCustomer = useStore((state) => state.selectedCustomer);
   const { push } = useHistory();
@@ -109,14 +110,17 @@ const CheckTable = () => {
         >
           <Button
             variant="contained"
-            onClick={() => push('/check', { selectedCheck })}
+            onClick={() => push('/check')}
             disabled={!selectedCheck.id}
           >
             Check Bearbeiten
           </Button>
           <Button
             variant="contained"
-            onClick={() => push('/check')}
+            onClick={() => {
+              resetSelectedCheck();
+              push('/check');
+            }}
             disabled={!selectedCustomer.id}
           >
             Check Hinzufügen
