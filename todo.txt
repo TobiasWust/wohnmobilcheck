@@ -1,0 +1,4 @@
+- get customer in check from id
+- check protocol
+- add all check items
+- print function (=> export pdf)
