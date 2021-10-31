@@ -1,15 +1,7 @@
 body {
   position: relative;
-  /* color: whiteda; */
   height: 100vh;
-  /* background: linear-gradient(
-    200.96deg,
-    #2900ff -29.09%,
-    #8e3000 51.77%,
-    #addb00 129.35%
-  ); */
   font-family: sans-serif;
-  /* overflow-y: hidden; */
   margin: 0;
   padding: 3em;
   box-sizing: border-box;
