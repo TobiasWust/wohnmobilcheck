@@ -5,30 +5,21 @@
 import { Button } from '@material-ui/core';
 import { TextField, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
 import Toast from '../components/Toast';
+import useSelectedCustomer from '../components/useSelectedCustomer';
 import promiseModal from '../helper/promiseModal';
 import { handleInput } from '../utils';
 
-export interface ICustomer {
-  id?: number;
-  lastName: string;
-  firstName: string;
-  street: string;
-  city: string;
-}
-
 const Customer = () => {
-  const { push, location } = useHistory();
-  const { selectedCustomer } = (location.state as {
-    selectedCustomer: Partial<ICustomer>;
-  }) || {
-    selectedCustomer: { lastName: '', firstName: '', street: '', city: '' },
-  };
+  const { push } = useHistory();
+  const [selectedCustomer] = useSelectedCustomer();
   const useCustomer = useState(selectedCustomer);
   const [customer] = useCustomer;
+
+  useContext();
 
   // will need something like this for edit cusotmer later
   // useEffect(() => {
