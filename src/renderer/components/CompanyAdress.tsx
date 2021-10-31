@@ -5,8 +5,11 @@ const CompanyAdress = () => {
   return (
     <div>
       <h3>{settings.companyName}</h3>
-      <p>{settings.street}</p>
-      <p>{settings.city}</p>
+      <p>
+        {settings.street}
+        <br />
+        {settings.city}
+      </p>
     </div>
   );
 };

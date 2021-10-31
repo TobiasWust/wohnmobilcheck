@@ -3,12 +3,12 @@
 // welcome the user and send him to check
 
 import { Button } from '@material-ui/core';
-import { TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMemo } from 'react';
 import { useHistory } from 'react-router';
 import CheckItem from '../components/CheckItem';
 import CompanyAdress from '../components/CompanyAdress';
+import CustomerAdress from '../components/CustomerAdress';
 import useStore from '../store';
 
 const Protocol = () => {
@@ -25,17 +25,19 @@ const Protocol = () => {
   );
 
   if (!check) return <div>Error</div>;
+  if (!customer) return <div>Error</div>;
 
   return (
     <div>
-      <CompanyAdress />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <CompanyAdress />
+        <CustomerAdress customer={customer} />
+      </div>
       <h1>Prüfprotokoll</h1>
-      <p>{`Kunde: ${customer?.lastName} ${customer?.firstName}`}</p>
-      <p>{`Check angelegt: ${new Date(
-        check.created as string
-      ).toLocaleDateString()}`}</p>
+      <p>
+        <strong>Fahrzeug:</strong> {check.car}
+      </p>
       <div style={{ display: 'grid' }}>
-        <TextField id="car" value={check.car} label="Fahrzeug" fullWidth />
         <h2>Dokumente</h2>
         <CheckItem
           id="fjn"
