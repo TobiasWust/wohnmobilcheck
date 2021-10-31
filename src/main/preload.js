@@ -22,8 +22,8 @@ contextBridge.exposeInMainWorld('electron', {
     async getChecks() {
       return ipcRenderer.invoke('getChecks');
     },
-    async saveChecks(check) {
-      return ipcRenderer.invoke('saveChecks', check);
+    async saveCheck(check) {
+      return ipcRenderer.invoke('saveCheck', check);
     },
     on(channel, func) {
       if (validChannels.includes(channel)) {

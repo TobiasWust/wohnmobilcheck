@@ -20,7 +20,7 @@ const Home = () => {
       }}
     >
       <div>
-        <h1>Wohnwagen Checker</h1>
+        <h1>Wust Wohnwagen Checker</h1>
         <Button variant="contained" onClick={() => push('/settings')}>
           Firmendaten ändern
         </Button>

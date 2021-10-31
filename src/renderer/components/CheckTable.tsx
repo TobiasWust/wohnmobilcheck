@@ -1,6 +1,6 @@
 import { Box, Button } from '@material-ui/core';
 import { TextField } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridValueFormatterParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import api from '../api';
@@ -8,8 +8,14 @@ import { ICheck } from '../pages/Check';
 import useStore from '../store';
 
 const columns = [
-  { field: 'car', headerName: 'Fahrzeug', width: 150 },
-  { field: 'created', headerName: 'Angelegt', width: 150 },
+  { field: 'car', headerName: 'Fahrzeug', flex: 1 },
+  {
+    field: 'created',
+    headerName: 'Angelegt',
+    flex: 1,
+    valueFormatter: (params: GridValueFormatterParams) =>
+      new Date(params.value as string).toLocaleDateString(),
+  },
 ];
 
 const CheckTable = () => {
@@ -24,11 +30,13 @@ const CheckTable = () => {
 
   useEffect(() => {
     setFilteredChecks(
-      checks.filter((r) =>
-        r.car.toLowerCase().includes(checkFilter.toLowerCase())
+      checks.filter(
+        (r) =>
+          r.car.toLowerCase().includes(checkFilter.toLowerCase()) &&
+          r.customerId === selectedCustomer.id
       )
     );
-  }, [checks, checkFilter]);
+  }, [checks, checkFilter, selectedCustomer]);
 
   useEffect(() => {
     api
@@ -69,7 +77,6 @@ const CheckTable = () => {
           rows={filteredChecks}
           columns={columns}
           onSelectionModelChange={(e) => {
-            console.log(e);
             setSelectedCheck(checks.find((c) => c.id === e[0]));
           }}
           hideFooterSelectedRowCount
@@ -89,7 +96,11 @@ const CheckTable = () => {
           >
             Check Bearbeiten
           </Button>
-          <Button variant="contained" onClick={() => push('/check')}>
+          <Button
+            variant="contained"
+            onClick={() => push('/check')}
+            disabled={!selectedCustomer.id}
+          >
             Check Hinzufügen
           </Button>
         </Box>

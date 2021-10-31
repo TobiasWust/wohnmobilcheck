@@ -11,21 +11,26 @@ import api from '../api';
 import CheckItem from '../components/CheckItem';
 import Toast from '../components/Toast';
 import promiseModal from '../helper/promiseModal';
+import useStore from '../store';
 import { handleInput } from '../utils';
 
 export interface ICheck {
   id?: number;
   customerId: number;
   car: string;
+  created: Date;
   values: any;
 }
 
 const Check = () => {
   const { push, location } = useHistory();
+  const selectedCustomer = useStore((state) => state.selectedCustomer);
   const { selectedCheck } = (location.state as {
     selectedCheck: Partial<ICheck>;
   }) || {
     selectedCheck: {
+      customerId: selectedCustomer.id,
+      created: new Date(),
       car: '',
       values: {},
     },
@@ -46,6 +51,10 @@ const Check = () => {
   return (
     <div>
       <h1>Check anlegen</h1>
+      <p>
+        {`Kunde: ${selectedCustomer.lastName} ${selectedCustomer.firstName}`}
+      </p>
+      <p>{`Check angelegt: ${check.created?.toLocaleDateString()}`}</p>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
