@@ -21,6 +21,7 @@ const Home = () => {
     >
       <h1>
         <Link to="/settings">{settings.companyName}</Link> Wohnwagen Checker
+        <small>v0.1.0</small>
       </h1>
       <div
         style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2em' }}
